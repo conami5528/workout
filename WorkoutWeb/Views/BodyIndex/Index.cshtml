@@ -1,0 +1,49 @@
+﻿@* BodyIndex/Index *@
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-header">
+    <h1>
+        身體指數紀錄
+    </h1>
+</div>
+
+
+
+@*<table class="tab-content">
+    <tr>
+        <td>日期</td>
+        <td>體重</td>
+        <td>BMI</td>
+        <td>體脂肪率</td>
+        <td>骨骼肌率</td>
+        <td>基礎代謝率</td>
+    </tr>
+
+</table>*@
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">日期</th>
+            <th scope="col">體重</th>
+            <th scope="col">BMI</th>
+            <th scope="col">體脂肪率</th>
+            <th scope="col">骨骼肌率</th>
+            <th scope="col">基礎代謝</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">2019/10/13</th>
+            <td>50.1</td>
+            <td>14.8</td>
+            <td>13.8%</td>
+            <td>37.2%</td>
+            <td>1326</td>
+        </tr>
+    </tbody>
+</table>
+<button class="btn btn-primary">新增</button>
