@@ -1,49 +1,159 @@
-﻿@* BodyIndex/Index *@
+﻿
+<script type="text/javascript" src="~/Scripts/BodyIndex.js"></script>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
+}
 
 <div class="page-header">
     <h1>
         身體指數紀錄
     </h1>
 </div>
+<div id="BodyIndexTable">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">日期</th>
+                <th scope="col">體重</th>
+                <th scope="col">BMI</th>
+                <th scope="col">體脂肪率</th>
+                <th scope="col">骨骼肌率</th>
+                <th scope="col">基礎代謝</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.Date.ToString("yyyy/MM/dd")</th>
+                    <td>@item.Weight</td>
+                    <td>@item.BMI</td>
+                    <td>@item.BodyFat</td>
+                    <td>@item.SkeletalMuscleRate</td>
+                    <td>@item.VisceralFat</td>
+                    <td><button type="button" class="btn btn-sm btn-info EditBtn" id="EditBtn" onclick="ClickEditBtn(this)">修改</button></td>
+                    <td><button type="button" class="btn btn-sm btn-danger DelBtn" id="DelBtn" onclick="ClickDelBtn(this)">刪除</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 
+<button class="btn btn-primary" data-toggle="modal" data-target="#AddModal" id="InsertBtn">新增</button>
 
-@*<table class="tab-content">
-    <tr>
-        <td>日期</td>
-        <td>體重</td>
-        <td>BMI</td>
-        <td>體脂肪率</td>
-        <td>骨骼肌率</td>
-        <td>基礎代謝率</td>
-    </tr>
+<div class="modal fade" id="AddModal" role="dialog">
+    <div class="modal-dialog modal-sm">
 
-</table>*@
-<table class="table table-striped">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">日期</th>
-            <th scope="col">體重</th>
-            <th scope="col">BMI</th>
-            <th scope="col">體脂肪率</th>
-            <th scope="col">骨骼肌率</th>
-            <th scope="col">基礎代謝</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th scope="row">2019/10/13</th>
-            <td>50.1</td>
-            <td>14.8</td>
-            <td>13.8%</td>
-            <td>37.2%</td>
-            <td>1326</td>
-        </tr>
-    </tbody>
-</table>
-<button class="btn btn-primary">新增</button>
+        <!-- Modal content-->
+        
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">新增表單</h4>
+                </div>
+                <div class="modal-body">
+                    
+                        <form>
+                            <div class="form-group">
+                                <label>日期</label>
+                                <input type="text" class="form-control" id="Add_Date">
+
+                            </div>
+                            <div class="form-group">
+                                <label>體重</label>
+                                <input type="text" class="form-control" id="Add_Weight">
+
+                            </div>
+                            <div class="form-group">
+                                <label>BMI</label>
+                                <input type="text" class="form-control" id="Add_BMI">
+
+                            </div>
+                            <div class="form-group">
+                                <label>體脂肪率</label>
+                                <input type="text" class="form-control" id="Add_BodyFat">
+
+                            </div>
+                            <div class="form-group">
+                                <label>骨骼肌率</label>
+                                <input type="text" class="form-control" id="Add_SkeletalMuscleRate">
+
+                            </div>
+                            <div class="form-group">
+                                <label>基礎代謝</label>
+                                <input type="text" class="form-control" id="Add_VisceralFat">
+
+                            </div>
+                        </form>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button id="AModalAddBtn" type="button" class="btn btn-default" data-dismiss="modal">新增</button>
+                    <button id="AModalCloseBtn" type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+<div class="modal fade" id="EditModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">修改表單</h4>
+            </div>
+            <div class="modal-body">
+
+                <form>
+                    <div class="form-group">
+                        <label>日期</label>
+                        <input type="text" class="form-control" id="Edit_Date" disabled>
+
+                    </div>
+                    <div class="form-group">
+                        <label>體重</label>
+                        <input type="text" class="form-control" id="Edit_Weight">
+
+                    </div>
+                    <div class="form-group">
+                        <label>BMI</label>
+                        <input type="text" class="form-control" id="Edit_BMI">
+
+                    </div>
+                    <div class="form-group">
+                        <label>體脂肪率</label>
+                        <input type="text" class="form-control" id="Edit_BodyFat">
+
+                    </div>
+                    <div class="form-group">
+                        <label>骨骼肌率</label>
+                        <input type="text" class="form-control" id="Edit_SkeletalMuscleRate">
+
+                    </div>
+                    <div class="form-group">
+                        <label>基礎代謝</label>
+                        <input type="text" class="form-control" id="Edit_VisceralFat">
+
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button id="EModalEditBtn" type="button" class="btn btn-info" data-dismiss="modal">修改</button>
+                <button id="EModalCloseBtn" type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+            </div>
+        </div>
+
+    </div>
+</div>

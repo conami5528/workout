@@ -8,15 +8,21 @@ using System.Threading.Tasks;
 
 namespace WorkoutWeb.Models.Interface
 {
-    public interface MainRepository<Tentity>
+    public interface IMainRepository<Tentity>
+        where Tentity : class
     {
         void Create(Tentity QQ);
         void Update(Tentity QQ);
         void Delete(Tentity QQ) ;
-        Tentity GetT(int UserId);
-        IQueryable<Tentity> GetAll();
+        Tentity GetT(string UserId);
+        List<Tentity> GetAll();
         void SaveChanges();
 
         
+    }
+
+    public interface BodyIndex_interface : IMainRepository<BodyBasicIndex>
+    {
+
     }
 }

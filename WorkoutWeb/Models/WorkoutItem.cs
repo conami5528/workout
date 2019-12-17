@@ -17,5 +17,7 @@ namespace WorkoutWeb.Models
         public string W_ID { get; set; }
         public string W_Name { get; set; }
         public string BodyParts { get; set; }
+        public Nullable<System.DateTime> CreateTime { get; set; }
+        public string CreateName { get; set; }
     }
 }

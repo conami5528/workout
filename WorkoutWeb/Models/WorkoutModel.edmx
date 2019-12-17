@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="WorkoutModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="WorkoutModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BodyBasicIndex">
           <Key>
             <PropertyRef Name="ID" />
@@ -58,19 +58,45 @@
           <Property Name="W_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="W_Name" Type="nvarchar" MaxLength="50" />
           <Property Name="BodyParts" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="CreateName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="WorkoutOrder">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="Day" />
+            <PropertyRef Name="W_Sequence" />
+          </Key>
+          <Property Name="OrderID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Day" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="WorkoutItem" Type="nvarchar" MaxLength="50" />
+          <Property Name="W_Sequence" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="W_WorkGroups" Type="nvarchar" MaxLength="50" />
+          <Property Name="W_WorkTimes" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="WorkoutRecordDetail">
+          <Key>
+            <PropertyRef Name="RecordNo" />
+          </Key>
+          <Property Name="RecordNo" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Day" Type="nvarchar" MaxLength="50" />
+          <Property Name="WorkoutItem" Type="nvarchar" MaxLength="50" />
+          <Property Name="W_Sequence" Type="nvarchar" MaxLength="50" />
+          <Property Name="W_WorkGroups" Type="nvarchar" MaxLength="50" />
+          <Property Name="W_WorkTimes" Type="nvarchar" MaxLength="50" />
+          <Property Name="W_WeightBearing" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" />
         </EntityType>
         <EntityType Name="WrokoutRecord">
           <Key>
-            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="RecordNo" />
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="OrderID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RecordNo" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="DeafualtOrderID" Type="nvarchar" MaxLength="50" />
           <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Day" Type="nvarchar" MaxLength="50" />
-          <Property Name="WorkoutItem" Type="nvarchar" MaxLength="50" />
-          <Property Name="W_Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="W_WorkGroups" Type="nvarchar" MaxLength="50" />
-          <Property Name="W_WorkTimes" Type="nvarchar" MaxLength="50" />
           <Property Name="CreateTime" Type="datetime" />
         </EntityType>
         <EntityContainer Name="WorkoutModelStoreContainer">
@@ -79,36 +105,21 @@
           <EntitySet Name="Food" EntityType="Self.Food" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkoutItem" EntityType="Self.WorkoutItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkoutOrder" EntityType="Self.WorkoutOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkoutRecordDetail" EntityType="Self.WorkoutRecordDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WrokoutRecord" EntityType="Self.WrokoutRecord" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WorkoutModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityContainer Name="WorkoutEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="User" EntityType="Self.User" />
-          <EntitySet Name="BodyBasicIndex" EntityType="WorkoutModel.BodyBasicIndex" />
-          <EntitySet Name="CalorieRecord" EntityType="WorkoutModel.CalorieRecord" />
-          <EntitySet Name="Food" EntityType="WorkoutModel.Food" />
-          <EntitySet Name="WorkoutItem" EntityType="WorkoutModel.WorkoutItem" />
-          <EntitySet Name="WrokoutRecord" EntityType="WorkoutModel.WrokoutRecord" />
-        </EntityContainer>
         <EntityType Name="BodyBasicIndex">
           <Key>
             <PropertyRef Name="ID" />
             <PropertyRef Name="Date" />
           </Key>
-          <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Height" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Weight" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BMI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -122,7 +133,7 @@
             <PropertyRef Name="ID" />
             <PropertyRef Name="Date" />
           </Key>
-          <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Food" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -133,40 +144,123 @@
           <Key>
             <PropertyRef Name="F_ID" />
           </Key>
-          <Property Name="F_ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Food_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Calorie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="F_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="WorkoutItem">
           <Key>
             <PropertyRef Name="W_ID" />
           </Key>
-          <Property Name="W_ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="W_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="W_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BodyParts" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="CreateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="WrokoutRecord">
+        <EntityType Name="WorkoutOrder">
           <Key>
             <PropertyRef Name="OrderID" />
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="Day" />
+            <PropertyRef Name="W_Sequence" />
           </Key>
-          <Property Name="OrderID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="WorkoutItem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="W_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="W_Sequence" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="W_WorkGroups" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="W_WorkTimes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="WorkoutRecordDetail">
+          <Key>
+            <PropertyRef Name="RecordNo" />
+          </Key>
+          <Property Name="RecordNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WorkoutItem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="W_Sequence" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="W_WorkGroups" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="W_WorkTimes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="W_WeightBearing" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="WrokoutRecord">
+          <Key>
+            <PropertyRef Name="RecordNo" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="RecordNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DeafualtOrderID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="WorkoutEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BodyBasicIndex" EntityType="Self.BodyBasicIndex" />
+          <EntitySet Name="CalorieRecord" EntityType="Self.CalorieRecord" />
+          <EntitySet Name="Food" EntityType="Self.Food" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="WorkoutItem" EntityType="Self.WorkoutItem" />
+          <EntitySet Name="WorkoutOrder" EntityType="Self.WorkoutOrder" />
+          <EntitySet Name="WorkoutRecordDetail" EntityType="Self.WorkoutRecordDetail" />
+          <EntitySet Name="WrokoutRecord" EntityType="Self.WrokoutRecord" />
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WorkoutModelStoreContainer" CdmEntityContainer="WorkoutEntities">
+        <EntityContainerMapping StorageEntityContainer="WorkoutModelStoreContainer" CdmEntityContainer="WorkoutEntities1">
+          <EntitySetMapping Name="BodyBasicIndex">
+            <EntityTypeMapping TypeName="WorkoutModel.BodyBasicIndex">
+              <MappingFragment StoreEntitySet="BodyBasicIndex">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="BMI" ColumnName="BMI" />
+                <ScalarProperty Name="BodyFat" ColumnName="BodyFat" />
+                <ScalarProperty Name="SkeletalMuscleRate" ColumnName="SkeletalMuscleRate" />
+                <ScalarProperty Name="VisceralFat" ColumnName="VisceralFat" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalorieRecord">
+            <EntityTypeMapping TypeName="WorkoutModel.CalorieRecord">
+              <MappingFragment StoreEntitySet="CalorieRecord">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Food" ColumnName="Food" />
+                <ScalarProperty Name="Calorie" ColumnName="Calorie" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Food">
+            <EntityTypeMapping TypeName="WorkoutModel.Food">
+              <MappingFragment StoreEntitySet="Food">
+                <ScalarProperty Name="F_ID" ColumnName="F_ID" />
+                <ScalarProperty Name="Food_Name" ColumnName="Food_Name" />
+                <ScalarProperty Name="Calorie" ColumnName="Calorie" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="F_Type" ColumnName="F_Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="WorkoutModel.User">
               <MappingFragment StoreEntitySet="User">
@@ -178,63 +272,52 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BodyBasicIndex">
-            <EntityTypeMapping TypeName="WorkoutModel.BodyBasicIndex">
-              <MappingFragment StoreEntitySet="BodyBasicIndex">
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="VisceralFat" ColumnName="VisceralFat" />
-                <ScalarProperty Name="SkeletalMuscleRate" ColumnName="SkeletalMuscleRate" />
-                <ScalarProperty Name="BodyFat" ColumnName="BodyFat" />
-                <ScalarProperty Name="BMI" ColumnName="BMI" />
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="Height" ColumnName="Height" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CalorieRecord">
-            <EntityTypeMapping TypeName="WorkoutModel.CalorieRecord">
-              <MappingFragment StoreEntitySet="CalorieRecord">
-                <ScalarProperty Name="Memo" ColumnName="Memo" />
-                <ScalarProperty Name="Calorie" ColumnName="Calorie" />
-                <ScalarProperty Name="Food" ColumnName="Food" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Food">
-            <EntityTypeMapping TypeName="WorkoutModel.Food">
-              <MappingFragment StoreEntitySet="Food">
-                <ScalarProperty Name="F_Type" ColumnName="F_Type" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Calorie" ColumnName="Calorie" />
-                <ScalarProperty Name="Food_Name" ColumnName="Food_Name" />
-                <ScalarProperty Name="F_ID" ColumnName="F_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="WorkoutItem">
             <EntityTypeMapping TypeName="WorkoutModel.WorkoutItem">
               <MappingFragment StoreEntitySet="WorkoutItem">
-                <ScalarProperty Name="BodyParts" ColumnName="BodyParts" />
-                <ScalarProperty Name="W_Name" ColumnName="W_Name" />
                 <ScalarProperty Name="W_ID" ColumnName="W_ID" />
+                <ScalarProperty Name="W_Name" ColumnName="W_Name" />
+                <ScalarProperty Name="BodyParts" ColumnName="BodyParts" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateName" ColumnName="CreateName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkoutOrder">
+            <EntityTypeMapping TypeName="WorkoutModel.WorkoutOrder">
+              <MappingFragment StoreEntitySet="WorkoutOrder">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="WorkoutItem" ColumnName="WorkoutItem" />
+                <ScalarProperty Name="W_Sequence" ColumnName="W_Sequence" />
+                <ScalarProperty Name="W_WorkGroups" ColumnName="W_WorkGroups" />
+                <ScalarProperty Name="W_WorkTimes" ColumnName="W_WorkTimes" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkoutRecordDetail">
+            <EntityTypeMapping TypeName="WorkoutModel.WorkoutRecordDetail">
+              <MappingFragment StoreEntitySet="WorkoutRecordDetail">
+                <ScalarProperty Name="RecordNo" ColumnName="RecordNo" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="WorkoutItem" ColumnName="WorkoutItem" />
+                <ScalarProperty Name="W_Sequence" ColumnName="W_Sequence" />
+                <ScalarProperty Name="W_WorkGroups" ColumnName="W_WorkGroups" />
+                <ScalarProperty Name="W_WorkTimes" ColumnName="W_WorkTimes" />
+                <ScalarProperty Name="W_WeightBearing" ColumnName="W_WeightBearing" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WrokoutRecord">
             <EntityTypeMapping TypeName="WorkoutModel.WrokoutRecord">
               <MappingFragment StoreEntitySet="WrokoutRecord">
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="W_WorkTimes" ColumnName="W_WorkTimes" />
-                <ScalarProperty Name="W_WorkGroups" ColumnName="W_WorkGroups" />
-                <ScalarProperty Name="W_Name" ColumnName="W_Name" />
-                <ScalarProperty Name="WorkoutItem" ColumnName="WorkoutItem" />
-                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="RecordNo" ColumnName="RecordNo" />
+                <ScalarProperty Name="DeafualtOrderID" ColumnName="DeafualtOrderID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

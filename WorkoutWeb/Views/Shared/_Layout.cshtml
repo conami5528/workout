@@ -1,12 +1,15 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </head>
 <body>
     <div class="navbar navbar-inverse   navbar-fixed-top">
@@ -27,13 +30,20 @@
                     <li>@Html.ActionLink("健身菜單設定", "Index", "WorkoutOrder")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("登入", "Index", "Login")</li>
-              
+
+                    @if (@Session["UserName"] == null)
+                    {
+                        <li>@Html.ActionLink("登入", "Index", "Login")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink(@Session["UserName"].ToString() + "/登出", "Logout", "Login")</li>
+                    }
                 </ul>
-                  
+
 
             </div>
-            
+
         </div>
     </div>
     <div class="container body-content">
@@ -44,8 +54,8 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+   
+    
+    
 </body>
 </html>

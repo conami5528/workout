@@ -1,0 +1,31 @@
+﻿
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">日期</th>
+            <th scope="col">體重</th>
+            <th scope="col">BMI</th>
+            <th scope="col">體脂肪率</th>
+            <th scope="col">骨骼肌率</th>
+            <th scope="col">基礎代謝</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Date.ToString("yyyy/MM/dd")</th>
+                <td>@item.Weight</td>
+                <td>@item.BMI</td>
+                <td>@item.BodyFat</td>
+                <td>@item.SkeletalMuscleRate</td>
+                <td>@item.VisceralFat</td>
+                <td><button type="button" class="btn btn-sm btn-info EditBtn" id="EditBtn" onclick="ClickEditBtn(this)">修改</button></td>
+                <td><button type="button" class="btn btn-sm btn-danger DelBtn" id="DelBtn" onclick="ClickDelBtn(this)">刪除</button></td>
+            </tr>
+        }
+    </tbody>
+</table>

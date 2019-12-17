@@ -12,11 +12,15 @@ namespace WorkoutWeb.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class WrokoutRecord
+    public partial class WorkoutRecordDetail
     {
         public string RecordNo { get; set; }
-        public string DeafualtOrderID { get; set; }
-        public string ID { get; set; }
-        public Nullable<System.DateTime> CreateTime { get; set; }
+        public string Day { get; set; }
+        public string WorkoutItem { get; set; }
+        public string W_Sequence { get; set; }
+        public string W_WorkGroups { get; set; }
+        public string W_WorkTimes { get; set; }
+        public string W_WeightBearing { get; set; }
+        public Nullable<System.DateTime> UpdateTime { get; set; }
     }
 }

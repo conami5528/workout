@@ -4,8 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace WorkoutWeb.Controllers
-{
+{   
+    [Authorize]
     public class WorkoutController : Controller
     {
         // GET: Workout

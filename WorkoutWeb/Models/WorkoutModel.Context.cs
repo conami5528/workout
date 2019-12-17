@@ -13,10 +13,10 @@ namespace WorkoutWeb.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class WorkoutEntities : DbContext
+    public partial class WorkoutEntities1 : DbContext
     {
-        public WorkoutEntities()
-            : base("name=WorkoutEntities")
+        public WorkoutEntities1()
+            : base("name=WorkoutEntities1")
         {
         }
     
@@ -25,11 +25,13 @@ namespace WorkoutWeb.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<BodyBasicIndex> BodyBasicIndex { get; set; }
         public virtual DbSet<CalorieRecord> CalorieRecord { get; set; }
         public virtual DbSet<Food> Food { get; set; }
+        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<WorkoutItem> WorkoutItem { get; set; }
+        public virtual DbSet<WorkoutOrder> WorkoutOrder { get; set; }
+        public virtual DbSet<WorkoutRecordDetail> WorkoutRecordDetail { get; set; }
         public virtual DbSet<WrokoutRecord> WrokoutRecord { get; set; }
     }
 }

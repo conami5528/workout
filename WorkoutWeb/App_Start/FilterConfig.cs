@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using WorkoutWeb.Models.Repository;
 
 namespace WorkoutWeb
 {
@@ -8,6 +9,7 @@ namespace WorkoutWeb
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-        }
+        
+        } 
     }
 }

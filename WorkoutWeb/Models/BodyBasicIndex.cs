@@ -14,6 +14,7 @@ namespace WorkoutWeb.Models
     
     public partial class BodyBasicIndex
     {
+
         public string ID { get; set; }
         public string Height { get; set; }
         public string Weight { get; set; }
