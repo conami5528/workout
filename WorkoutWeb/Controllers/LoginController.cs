@@ -49,20 +49,21 @@ namespace WorkoutWeb.Controllers
             expiration: DateTime.UtcNow.AddMinutes(30),//Cookie有效時間=現在時間往後+30分鐘
             isPersistent: true,// 是否要記住我 true or false
             userData: _user.Name, //可以放使用者角色名稱
+            
             cookiePath: FormsAuthentication.FormsCookiePath);
 
             var encryptedTicket = FormsAuthentication.Encrypt(ticket); //把驗證的表單加密
             var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
             Response.Cookies.Add(cookie);
-            Session["UserName"] = _user.Name.ToString();
+
+            //Session["username"] = _user.Name.ToString();
+
             return RedirectToAction("Index", "Workout");
         }
 
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-
-            //清除所有的 session
             Session.RemoveAll();
 
             return RedirectToAction("Index", "Workout");

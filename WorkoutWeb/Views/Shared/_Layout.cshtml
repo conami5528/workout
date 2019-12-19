@@ -31,13 +31,22 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
 
-                    @if (@Session["UserName"] == null)
+                    @*@if (Session["username"] == null)
                     {
                         <li>@Html.ActionLink("登入", "Index", "Login")</li>
                     }
                     else
                     {
-                        <li>@Html.ActionLink(@Session["UserName"].ToString() + "/登出", "Logout", "Login")</li>
+                        <li>@Html.ActionLink(Session["username"].ToString() + "/登出", "Logout", "Login")</li>
+                    }*@
+                    @if (Request.Cookies[FormsAuthentication.FormsCookieName]==null)
+                    {
+                        <li>@Html.ActionLink("登入", "Index", "Login")</li>
+                    }
+                    else
+                    {
+                        
+                        <li>@Html.ActionLink(FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).UserData+ "/登出", "Logout", "Login")</li>
                     }
                 </ul>
 
